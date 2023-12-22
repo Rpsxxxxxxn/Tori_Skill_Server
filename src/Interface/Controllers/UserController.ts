@@ -2,16 +2,16 @@ import { Body, Delete, Get, Param, Post, Put, Req, Res } from "routing-controlle
 import UserService from "../../Domain/Services/UserService";
 import UserRepositoryImpl from "../../Infrastructure/RepositoryImpl/UserRepositoryImpl";
 import { Request, Response } from "express";
-import UserView from "../Views/UserView";
+import UserForm from "../Forms/UserForm";
 import UserEntity from "../../Domain/Entities/UserEntity";
 
 class UserController {
   private userService: UserService = new UserService(new UserRepositoryImpl());
 
   @Post('/user/register')
-  public async register(@Body() body: UserView, @Req() req: Request, @Res() res: Response
+  public async register(@Body() body: UserForm, @Req() req: Request, @Res() res: Response
   ) {
-    const user: UserEntity = new UserEntity(0, body.name, body.email, '', '', new Date(), new Date());
+    const user: UserEntity = new UserEntity(0, body.firstName, body.lastName, body.email, '', '', new Date(), new Date());
     try {
       await this.userService.create(user);
       return res.status(200).json({ message: 'ユーザー作成に成功しました' });
@@ -47,9 +47,9 @@ class UserController {
   }
 
   @Put('/users/:id')
-  public async putUser(@Param('id') id: number, @Body() body: UserView, @Res() res: Response) {
+  public async putUser(@Param('id') id: number, @Body() body: UserForm, @Res() res: Response) {
     try {
-      const user: UserEntity = new UserEntity(id, body.name, body.email, '', '', new Date(), new Date());
+      const user: UserEntity = new UserEntity(id, body.firstName, body.lastName, body.email, '', '', new Date(), new Date());
       await this.userService.update(user);
       return res.status(200).json({ message: '更新に成功しました' });
     } catch (err) {

@@ -1,8 +1,5 @@
 import express from 'express';
-import { PrismaClient } from '@prisma/client';
 import { createExpressServer } from 'routing-controllers';
-
-const prisma = new PrismaClient();
 
 const app = createExpressServer({
   cors: true,
