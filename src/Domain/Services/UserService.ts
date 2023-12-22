@@ -1,3 +1,4 @@
+import UserForm from "../../Interface/Forms/UserForm";
 import UserEntity from "../Entities/UserEntity";
 import IUserRepository from "../Repositories/UserRepository";
 
@@ -18,11 +19,33 @@ class UserService {
     return user;
   }
 
-  async create(user: UserEntity): Promise<void> {
+  async create(body: UserForm): Promise<void> {
+    const user: UserEntity = UserEntity.create(
+      0,
+      body.firstName,
+      body.lastName,
+      body.contactNumber,
+      body.photoUrl,
+      body.email,
+      '',
+      '',
+      new Date(),
+      new Date());
     await this.userRepository.create(user);
   }
 
-  async update(user: UserEntity): Promise<UserEntity> {
+  async update(id: number, body: UserForm): Promise<UserEntity> {
+    const user: UserEntity = UserEntity.create(
+      id,
+      body.firstName,
+      body.lastName,
+      body.contactNumber,
+      body.photoUrl,
+      body.email,
+      '',
+      '',
+      new Date(),
+      new Date());
     const updatedUser = await this.userRepository.update(user);
     return updatedUser;
   }

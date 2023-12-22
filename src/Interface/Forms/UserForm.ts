@@ -9,6 +9,9 @@ class UserForm {
   age!: number;
   @IsNotEmpty({ message: 'メールアドレスは必須です' })
   email!: string;
+  @IsNotEmpty({ message: '電話番号は必須です' })
+  contactNumber!: string;
+  photoUrl!: string;
   @IsNotEmpty({ message: 'パスワードは必須です' })
   password!: string;
 }
