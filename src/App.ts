@@ -7,7 +7,7 @@ const app = createExpressServer({
   classTransformer: true,
   defaultErrorHandler: false,
   controllers: [__dirname + '/Interface/Controllers/*.ts'],
-  middlewares: [__dirname + '/Middlewares/*.ts'],
+  middlewares: [__dirname + '/Middleware/*.ts'],
 });
 
 app.listen(3000, () => {
