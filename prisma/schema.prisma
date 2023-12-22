@@ -11,11 +11,70 @@ datasource db {
 }
 
 model User {
-  id        Int       @id @default(autoincrement())
-  email     String    @unique
-  name      String?
-  password  String?
-  role      String    @default(value: "USER")
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  id              Int                 @id @default(autoincrement())
+  name            String
+  contactNumber   String?
+  email           String              @unique
+  photoUrl        String?
+  EmploymentHistory  EmploymentHistory[]
+  Skills            Skill[]
+  Projects          Project[]
+  Qualifications    Qualification[]
+  Education         Education[]
+  SelfPromotion     SelfPromotion?
+}
+
+model EmploymentHistory {
+  id              Int                 @id @default(autoincrement())
+  userId          Int               @unique
+  companyName     String
+  startDate       DateTime
+  endDate         DateTime?
+  jobDescription  String
+  user            User                @relation(fields: [userId], references: [id])
+}
+
+model Skill {
+  id              Int                 @id @default(autoincrement())
+  userId          Int               @unique
+  skillName       String
+  level           String
+  experienceYears Int
+  user            User                @relation(fields: [userId], references: [id])
+}
+
+model Project {
+  id              Int                 @id @default(autoincrement())
+  userId          Int              @unique
+  projectName     String
+  description     String
+  role            String
+  technologiesUsed String
+  startDate       DateTime
+  endDate         DateTime?
+  user            User                @relation(fields: [userId], references: [id])
+}
+
+model Qualification {
+  id              Int                 @id @default(autoincrement())
+  userId          Int              @unique
+  qualificationName String
+  dateObtained    DateTime
+  user            User                @relation(fields: [userId], references: [id])
+}
+
+model Education {
+  id              Int                 @id @default(autoincrement())
+  userId          Int             @unique
+  schoolName      String
+  department      String?
+  graduationDate  DateTime
+  user            User                @relation(fields: [userId], references: [id])
+}
+
+model SelfPromotion {
+  id              Int                 @id @default(autoincrement())
+  userId          Int             @unique
+  content         String
+  user            User                @relation(fields: [userId], references: [id])
 }

@@ -1,17 +1,15 @@
-import express from 'express';
-import { PrismaClient } from '@prisma/client';
 import { createExpressServer } from 'routing-controllers';
-
-const prisma = new PrismaClient();
+import 'reflect-metadata';
 
 const app = createExpressServer({
   cors: true,
   routePrefix: '/api',
   classTransformer: true,
   defaultErrorHandler: false,
-  controllers: [__dirname + '/Controllers/*.ts'],
-  middlewares: [__dirname + '/Middlewares/*.ts'],
+  controllers: [__dirname + '/Interface/Controllers/*.ts'],
+  middlewares: [__dirname + '/Middleware/*.ts'],
 });
 
-app.use(express.json());
-app.listen(3000);
+app.listen(3000, () => {
+  console.log('Server is running on port 3000');
+});
